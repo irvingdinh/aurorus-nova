@@ -35,4 +35,4 @@ COPY --from=builder /main /usr/local/bin/main
 
 USER app
 
-CMD ["main", "serve", "--http 0.0.0.0:80"]
+CMD ["main", "serve", "--http=0.0.0.0:80"]
