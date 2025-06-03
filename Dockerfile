@@ -33,8 +33,6 @@ WORKDIR /app
 
 COPY --from=builder /server /usr/local/bin/server
 
-EXPOSE 8090
-
 USER app
 
-CMD ["server", "serve"]
+CMD ["server", "serve", "--http=0.0.0.0:80"]

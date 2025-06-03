@@ -1,7 +1,15 @@
 package main
 
-import "github.com/irvingdinh/aurorus-nova/internal/cmd"
+import (
+	"log"
+
+	"github.com/pocketbase/pocketbase"
+)
 
 func main() {
-	cmd.Execute()
+	app := pocketbase.New()
+
+	if err := app.Start(); err != nil {
+		log.Fatal(err)
+	}
 }
