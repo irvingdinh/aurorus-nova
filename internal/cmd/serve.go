@@ -7,14 +7,27 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var serveCmd = &cobra.Command{
-	Use:   "serve",
-	Short: "Lorem ipsum dolor sit amet",
-	Run: func(cmd *cobra.Command, args []string) {
-		app := pocketbase.New()
+func makeServeCommand() *cobra.Command {
+	var httpAddr string
 
-		if err := app.Start(); err != nil {
-			log.Fatal(err)
-		}
-	},
+	command := &cobra.Command{
+		Use:   "serve",
+		Short: "Lorem ipsum dolor sit amet",
+		Run: func(cmd *cobra.Command, args []string) {
+			app := pocketbase.New()
+
+			if err := app.Start(); err != nil {
+				log.Fatal(err)
+			}
+		},
+	}
+
+	command.PersistentFlags().StringVar(
+		&httpAddr,
+		"http",
+		"",
+		"TCP address to listen for the HTTP server",
+	)
+
+	return command
 }

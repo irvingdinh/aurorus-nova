@@ -16,7 +16,7 @@ var cmd = &cobra.Command{
 }
 
 func Execute() {
-	cmd.AddCommand(serveCmd)
+	cmd.AddCommand(makeServeCommand())
 
 	if err := cmd.Execute(); err != nil {
 		log.Fatal(err.Error())
