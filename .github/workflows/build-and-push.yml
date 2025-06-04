@@ -2,7 +2,9 @@ on:
   push:
     branches:
       - main
-      - feat/add-github-workflows
+  pull_request:
+    branches:
+      - main
 
 permissions:
   packages: write
