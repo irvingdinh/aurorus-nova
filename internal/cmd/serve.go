@@ -1,10 +1,11 @@
 package cmd
 
 import (
-	"log"
-
-	"github.com/pocketbase/pocketbase"
 	"github.com/spf13/cobra"
+	"go.uber.org/fx"
+
+	"github.com/irvingdinh/aurorus-nova/internal/pb/pb_server"
+	"github.com/irvingdinh/aurorus-nova/internal/service/pb_helper_service"
 )
 
 func makeServeCommand() *cobra.Command {
@@ -14,11 +15,15 @@ func makeServeCommand() *cobra.Command {
 		Use:   "serve",
 		Short: "Lorem ipsum dolor sit amet",
 		Run: func(cmd *cobra.Command, args []string) {
-			app := pocketbase.New()
-
-			if err := app.Start(); err != nil {
-				log.Fatal(err)
-			}
+			fx.New(
+				fx.Provide(pb_helper_service.NewPbHelperService),
+				fx.Provide(pb_server.NewPbServer),
+				fx.Invoke(func(
+					_ pb_server.PbServer,
+				) {
+					//
+				}),
+			).Run()
 		},
 	}
 
